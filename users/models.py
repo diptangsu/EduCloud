@@ -20,6 +20,7 @@ class User(models.Model):
     last_name = models.CharField(max_length=20)
 
     email_id = models.EmailField(max_length=255)
+    password = models.CharField(max_length=50)
 
     phone1 = models.CharField(max_length=14)
     phone2 = models.CharField(max_length=14, default=None, blank=True, null=True)
@@ -40,7 +41,7 @@ class User(models.Model):
 
 class StudentDetail(models.Model):
     student = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    university_roll = models.BigIntegerField(primary_key=True)
+    university_roll = models.BigIntegerField()
 
 
 class ProfessorDetail(models.Model):
