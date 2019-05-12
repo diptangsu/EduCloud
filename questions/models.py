@@ -19,6 +19,9 @@ class Question(models.Model):
 
         return upvotes - downvotes
 
+    def answers(self):
+        return Answer.objects.filter(question=self)
+
 
 class QuestionImage(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, null=True)

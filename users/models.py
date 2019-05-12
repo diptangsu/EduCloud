@@ -43,7 +43,7 @@ class User(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
 
     def __str__(self) -> str:
-        return f'{self.get_user_type_display()}: {self.first_name} {self.last_name} [{self.department.short_form}]'
+        return f'{self.get_user_type_display()}: {self.name()} [{self.department.short_form}]'
 
     def reputation(self):
         questions = Question.objects.filter(user=self)
@@ -69,6 +69,9 @@ class User(models.Model):
 
     def name(self):
         return f'{self.first_name} {self.last_name}'
+
+    def fullname(self):
+        return f'{self.first_name} {self.middle_name} {self.last_name}'
 
 
 class StudentDetail(models.Model):

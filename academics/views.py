@@ -1,16 +1,40 @@
 from django.shortcuts import render
 
 from questions.models import Question
+from users.models import User
 
 
-def questions(request, dept: str):
-    dept = dept.upper()
-    all_questions = Question.objects.filter(subject__department__short_form=dept).order_by('timestamp')
+def department_questions(request, department: str):
+    department = department.upper()
+    print(department)
+    questions = Question.objects.filter(subject__department__short_form=department).order_by('-timestamp')
 
-    return render(request, 'academics/dept-questions.html', {
-        'all_questions': all_questions
+    return render(request, 'academics/questions.html', {
+        'questions': questions
     })
 
 
-def professors(request, dept):
-    pass
+def subject_questions(request, subject_code: str):
+    subject_code = subject_code.upper()
+    questions = Question.objects.filter(subject__code=subject_code).order_by('-timestamp')
+
+    return render(request, 'academics/questions.html', {
+        'questions': questions
+    })
+
+
+def department_professors(request, department: str):
+    department = department.upper()
+    professors = User.objects.filter(user_type='P', department__short_form=department)
+
+    return render(request, 'academics/professors.html', {
+        'professors': professors
+    })
+
+
+def all_professors(request):
+    professors = User.objects.filter(user_type='P').order_by('department__short_form')
+
+    return render(request, 'academics/professors.html', {
+        'professors': professors
+    })
