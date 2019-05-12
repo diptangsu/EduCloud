@@ -10,6 +10,9 @@ class Question(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f'{self.name} [{self.user.first_name}, {self.subject.code}]'
+
 
 class QuestionImage(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, null=True)
@@ -31,6 +34,9 @@ class Answer(models.Model):
     user = models.ForeignKey('users.User', on_delete=models.CASCADE, null=True)
     body = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.user.first_name}: {self.question.name}'
 
 
 class AnswerImage(models.Model):

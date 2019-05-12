@@ -1,0 +1,18 @@
+<h1>{{ this_question.name }}</h1>
+
+<p>{{ this_question.body }}</p>
+
+<p>Asked by {{ user.name }} [{{ user.reputation }}]</p>
+
+<hr>
+
+<ul>
+    {% for answer in answers %}
+        <li>
+            <p>{{ answer.body }}</p>
+            <p>{{ answer.votes }}</p>
+            <p>{{ answer.answer_user }}</p>
+            <p>{{ answer.timestamp }}</p>
+        </li>
+    {% endfor %}
+</ul>

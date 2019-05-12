@@ -10,7 +10,7 @@ class Department(models.Model):
 
 
 class Subject(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=200)
     code = models.CharField(max_length=10)
     department = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
 
