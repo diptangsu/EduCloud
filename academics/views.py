@@ -1,3 +1,13 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def questions(request, dept):
+    pass
+
+
+def professors(request, dept):
+    pass
+
+
+def students(request, dept):
+    pass

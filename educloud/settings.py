@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'academics.apps.AcademicsConfig',
     'questions.apps.QuestionsConfig',
+    'chatbot.apps.ChatbotConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

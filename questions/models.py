@@ -1,13 +1,14 @@
 from django.db import models
 
-from users.models import User
+from academics.models import Subject
 
 
 class Question(models.Model):
     name = models.CharField(max_length=255)
     body = models.TextField()
-
-    student = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey('users.User', on_delete=models.CASCADE, null=True)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
 
 class QuestionImage(models.Model):
@@ -21,14 +22,15 @@ class QuestionVote(models.Model):
         ('D', 'DownVote')
     )
     question = models.ForeignKey(Question, on_delete=models.CASCADE, null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey('users.User', on_delete=models.CASCADE, null=True)
     vote_type = models.CharField(max_length=1, choices=VOTE_TYPES)
 
 
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey('users.User', on_delete=models.CASCADE, null=True)
     body = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
 
 
 class AnswerImage(models.Model):
@@ -42,5 +44,5 @@ class AnswerVote(models.Model):
         ('D', 'DownVote')
     )
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE, null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey('users.User', on_delete=models.CASCADE, null=True)
     vote_type = models.CharField(max_length=1, choices=VOTE_TYPES)

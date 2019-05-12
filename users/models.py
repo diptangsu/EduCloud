@@ -1,5 +1,12 @@
 from django.db import models
+
 from academics.models import Department
+from academics.models import Subject
+
+from questions.models import Question
+from questions.models import Answer
+from questions.models import QuestionVote
+from questions.models import AnswerVote
 
 
 class User(models.Model):
@@ -30,7 +37,7 @@ class User(models.Model):
     date_of_birth = models.DateField(blank=True, null=True)
 
     address = models.TextField()
-    picture = models.ImageField(upload_to='student_profile_pictures/')
+    picture = models.ImageField(upload_to='user_profile_pictures/')
     year_of_joining = models.IntegerField()
 
     department = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
@@ -38,11 +45,39 @@ class User(models.Model):
     def __str__(self) -> str:
         return f'{self.user_type}: {self.first_name} {self.last_name} [{self.department.short_form}]'
 
+    def reputation(self):
+        questions = Question.objects.filter(user=self)
+        answers = Answer.objects.filter(user=self)
+
+        rep = 0
+
+        for question in questions:
+            question_upvotes = QuestionVote.objects.filter(question=question, vote_type='U').count()
+            question_downvotes = QuestionVote.objects.filter(question=question, vote_type='D').count()
+
+            rep += question_upvotes * 10
+            rep -= question_downvotes * 1
+
+        for answer in answers:
+            answer_upvotes = AnswerVote.objects.filter(answer=answer, vote_type='U').count()
+            answer_downvotes = AnswerVote.objects.filter(answer=answer, vote_type='D').count()
+
+            rep += answer_upvotes * 20
+            rep -= answer_downvotes * 2
+
+        return rep
+
 
 class StudentDetail(models.Model):
     student = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    university_roll = models.BigIntegerField()
+    university_roll_no = models.BigIntegerField()
+    university_administration_no = models.BigIntegerField()
 
 
 class ProfessorDetail(models.Model):
     professor = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+
+
+class ProfessorSubject(models.Model):
+    professor = models.ForeignKey(ProfessorDetail, on_delete=models.CASCADE, null=True)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=True)
