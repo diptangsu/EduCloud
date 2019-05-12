@@ -1,0 +1,11 @@
+<ul>
+    {% for question in all_questions %}
+        <li>
+            <h4>{{ question.name }}</h4>
+            <p>{{ question.body }}</p>
+            <p>Subject: {{ question.subject }}</p>
+            <p>Votes: {{ question.votes }}</p>
+            <p>Asked by {{ question.user }}, {{ question.timestamp }}</p>
+        </li>
+    {% endfor %}
+</ul>
