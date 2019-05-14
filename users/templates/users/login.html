@@ -1,0 +1,146 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<!--[if IE 9 ]><html class="ie9"><![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        Login
+    </title>
+
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+
+    <!-- Vendors -->
+
+    <!-- Animate CSS -->
+    <link href="{% static 'vendors/bower_components/animate.css/animate.min.css' %}" rel="stylesheet">
+
+    <!-- Material Design Icons -->
+    <link href="{% static 'vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css' %}"
+          rel="stylesheet">
+
+    <!-- Malihu Scrollbar -->
+    <link href="{% static 'vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css' %}"
+          rel="stylesheet">
+
+    <!-- Full Calendar -->
+    <link href="{% static 'vendors/bower_components/fullcalendar/dist/fullcalendar.min.css' %}" rel="stylesheet">
+
+    <!-- Site CSS -->
+    <link href="{% static 'css/app-1.min.css' %}" rel="stylesheet">
+
+    <!-- Page loader -->
+    <script src="{% static 'js/page-loader.min.js' %}"></script>
+
+    <link href="{% static 'css/fingerdrumming.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+<section id="container">
+
+    <div class="login">
+
+        <!-- Login -->
+        <div class="login__block toggled" id="1-login"
+             style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            <div class="login__block__header">
+{#                <i class="zmdi zmdi-account-circle"></i>#}
+                <i class="fas fa-user"></i>
+                <h3>Login</h3>
+            </div>
+
+            <div class="login__block__body">
+                <form method="post" action="{% url 'user-login' %}" autocomplete="off">
+                    {% csrf_token %}
+                    <div class="form-group form-group--float form-group--centered form-group--centered">
+                        <input required type="email" class="form-control" name="email">
+                        <label>Email id</label>
+                    </div>
+                    <div class="form-group form-group--float form-group--centered form-group--centered">
+                        <input required type="password" class="form-control" name="password">
+                        <label>Password</label>
+                    </div>
+
+                    <button type="submit" class="btn btn--light btn--icon m-t-15"><i
+                            class="zmdi zmdi-long-arrow-right"></i></button>
+                </form>
+            </div>
+
+    <div class="loading" style="margin-top: 12%;">
+        <div class="finger finger-1">
+            <div class="finger-item">
+                <span></span><i></i>
+            </div>
+        </div>
+        <div class="finger finger-2">
+            <div class="finger-item">
+                <span></span><i></i>
+            </div>
+        </div>
+        <div class="finger finger-3">
+            <div class="finger-item">
+                <span></span><i></i>
+            </div>
+        </div>
+        <div class="finger finger-4">
+            <div class="finger-item">
+                <span></span><i></i>
+            </div>
+        </div>
+        <div class="last-finger">
+            <div class="last-finger-item"><i></i></div>
+        </div>
+    </div>
+        </div>
+    </div>
+
+</section>
+
+<!-- Javascript Libraries -->
+
+<!-- jQuery -->
+<script src="{% static 'vendors/bower_components/jquery/dist/jquery.min.js' %}"></script>
+
+<!-- Bootstrap -->
+<script src="{% static 'vendors/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+
+<!-- Malihu ScrollBar -->
+<script src="{% static 'vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+
+<!-- Bootstrap Notify -->
+<script src="{% static 'vendors/bower_components/remarkable-bootstrap-notify/dist/bootstrap-notify.min.js' %}"></script>
+
+<!-- Moment -->
+<script src="{% static 'vendors/bower_components/moment/min/moment.min.js' %}"></script>
+
+<!-- FullCalendar -->
+<script src="{% static 'vendors/bower_components/fullcalendar/dist/fullcalendar.min.js' %}"></script>
+
+<!-- Simple Weather -->
+<script src="{% static 'vendors/bower_components/simpleWeather/jquery.simpleWeather.min.js' %}"></script>
+
+<!-- Salvattore -->
+<script src="{% static 'vendors/bower_components/salvattore/dist/salvattore.min.js' %}"></script>
+
+<!-- Flot Charts -->
+<script src="{% static 'vendors/bower_components/flot/jquery.flot.js' %}"></script>
+<script src="{% static 'vendors/bower_components/flot/jquery.flot.resize.js' %}"></script>
+<script src="{% static 'vendors/bower_components/flot.curvedlines/curvedLines.js' %}"></script>
+
+<!-- Sparkline Charts -->
+<script src="{% static 'vendors/jquery.sparkline/jquery.sparkline.min.js' %}"></script>
+
+<!-- EasyPie Charts -->
+<script src="{% static 'vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js' %}"></script>
+
+<!-- Site Functions & Actions -->
+<script src="{% static 'js/app.min.js' %}"></script>
+</body>
+</html>

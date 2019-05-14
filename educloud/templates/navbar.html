@@ -1,0 +1,41 @@
+{% load staticfiles %}
+
+<aside id="navigation">
+    <div class="navigation__header">
+        <i class="zmdi zmdi-long-arrow-left" data-mae-action="block-close"></i>
+    </div>
+
+    <div class="navigation__toggles">
+        <a href="" class="active" data-mae-action="block-open" data-mae-target="#notifications"
+           data-toggle="tab" data-target="#notifications__messages">
+            <i class="zmdi zmdi-email"></i>
+        </a>
+        <a href="" data-mae-action="block-open" data-mae-target="#notifications" data-toggle="tab"
+           data-target="#notifications__updates">
+            <i class="zmdi zmdi-notifications"></i>
+        </a>
+        <a href="" data-mae-action="block-open" data-mae-target="#notifications" data-toggle="tab"
+           data-target="#notifications__tasks">
+            <i class="zmdi zmdi-playlist-plus"></i>
+        </a>
+    </div>
+
+    <div class="navigation__menu c-overflow">
+        <ul>
+            {% for dept in departments %}
+
+                {% if department == dept.short_form %}
+                    <li class="navigation__active">
+                        {% else %}
+                    <li>
+                {% endif %}
+
+            <a href="{% url 'department-question' dept.short_form %}">
+                {{ dept.icon | safe }} {{ dept.short_form }}
+            </a>
+
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</aside>

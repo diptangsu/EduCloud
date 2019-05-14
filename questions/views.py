@@ -6,6 +6,16 @@ from django.shortcuts import redirect
 from .models import Question
 from .models import Answer
 
+from academics.models import Department
+
+
+def home(request):
+    departments = Department.objects.all()
+
+    return render(request, 'questions/home.html', {
+        'departments': departments
+    })
+
 
 def questions(request):
     all_questions = Question.objects.all().order_by('-timestamp')[:20]

@@ -1,13 +1,53 @@
-<ul>
-    {% for question in questions %}
-        <li>
-            <a href="{% url 'question' question.id %}">
-                <h4>{{ question.name }}</h4>
-            </a>
-            <p>{{ question.body }}</p>
-            <p>Subject: {{ question.subject }}</p>
-            <p>Votes: {{ question.votes }}</p>
-            <p>Asked by {{ question.user }}, {{ question.timestamp }}</p>
-        </li>
-    {% endfor %}
-</ul>
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ department }}
+{% endblock %}
+
+{% block content %}
+
+    <div id="content">
+        <div class="content__header">
+            <h3>{{ header }}
+                <br>
+                <small>List of questions</small>
+            </h3>
+        </div>
+    </div>
+
+
+
+    <ul>
+        {% for question in questions %}
+
+            <div class="card">
+                <div class="card__header">
+                    <a href="{% url 'question' question.id %}">
+                        <h1>{{ question.name }}</h1>
+                    </a>
+                    <div class="actions">
+                        <a href=""><i class="fas fa-chevron-up" style="color: #4caf50;"></i></a>
+                        <a><font color="white">{{ question.votes }}</font></a>
+                        <a href=""><i class="fas fa-chevron-down" style="color: #ef5350;"></i></a>
+                    </div>
+                    <small>by <a href="" class="btn-link"><u>{{ question.user.name }}</u></a> on {{ question.timestamp }}</small>
+                    <br><br>
+                    <a href="{% url 'department-question' question.subject.department.short_form %}"
+                       class="btn btn-primary">
+                        Subject: {{ question.subject.code }}
+                    </a>
+                    <br>
+                </div>
+
+                <div class="card__body">
+                    {{ question.body }}
+                </div>
+
+                <div class="card__footer">
+                    <a class="btn btn-info" href="{% url 'question' question.id %}">View</a>
+                    <a class="btn btn-success" href="{% url 'question' question.id %}">Answer</a>
+                </div>
+            </div>
+        {% endfor %}
+    </ul>
+{% endblock %}

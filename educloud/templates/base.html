@@ -1,0 +1,120 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<!--[if IE 9 ]><html class="ie9"><![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+
+    <!-- Vendors -->
+
+    <!-- Animate CSS -->
+    <link href="{% static 'vendors/bower_components/animate.css/animate.min.css' %}" rel="stylesheet">
+
+    <!-- Material Design Icons -->
+    <link href="{% static 'vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css' %}"
+          rel="stylesheet">
+
+    <!-- Malihu Scrollbar -->
+    <link href="{% static 'vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css' %}"
+          rel="stylesheet">
+
+    <!-- Full Calendar -->
+    <link href="{% static 'vendors/bower_components/fullcalendar/dist/fullcalendar.min.css' %}" rel="stylesheet">
+
+    <!-- Site CSS -->
+    <link href="{% static 'css/app-1.min.css' %}" rel="stylesheet">
+
+    <!-- Page loader -->
+    <script src="{% static 'js/page-loader.min.js' %}"></script>
+</head>
+
+<body>
+<!-- Page Loader -->
+{#        <div id="page-loader">#}
+{#            <div class="preloader preloader--xl preloader--light">#}
+{#                <svg viewBox="25 25 50 50">#}
+{#                    <circle cx="50" cy="50" r="20" />#}
+{#                </svg>#}
+{#            </div>#}
+{#        </div>#}
+
+{% include 'header.html' %}
+
+<section id="main">
+    {% include 'notifications.html' %}
+
+    {% include 'navbar.html' %}
+
+    {% block content %}
+
+    {% endblock %}
+
+    {% include 'footer.html' %}
+
+</section>
+
+<!-- Javascript Libraries -->
+
+<!-- jQuery -->
+<script src="{% static 'vendors/bower_components/jquery/dist/jquery.min.js' %}"></script>
+
+<!-- Bootstrap -->
+<script src="{% static 'vendors/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+
+<!-- Malihu ScrollBar -->
+<script src="{% static 'vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+
+<!-- Bootstrap Notify -->
+<script src="{% static 'vendors/bower_components/remarkable-bootstrap-notify/dist/bootstrap-notify.min.js' %}"></script>
+
+<!-- Moment -->
+<script src="{% static 'vendors/bower_components/moment/min/moment.min.js' %}"></script>
+
+<!-- FullCalendar -->
+<script src="{% static 'vendors/bower_components/fullcalendar/dist/fullcalendar.min.js' %}"></script>
+
+<!-- Simple Weather -->
+<script src="{% static 'vendors/bower_components/simpleWeather/jquery.simpleWeather.min.js' %}"></script>
+
+<!-- Salvattore -->
+<script src="{% static 'vendors/bower_components/salvattore/dist/salvattore.min.js' %}"></script>
+
+<!-- Flot Charts -->
+<script src="{% static 'vendors/bower_components/flot/jquery.flot.js' %}"></script>
+<script src="{% static 'vendors/bower_components/flot/jquery.flot.resize.js' %}"></script>
+<script src="{% static 'vendors/bower_components/flot.curvedlines/curvedLines.js' %}"></script>
+
+<!-- Sparkline Charts -->
+<script src="{% static 'vendors/jquery.sparkline/jquery.sparkline.min.js' %}"></script>
+
+<!-- EasyPie Charts -->
+<script src="{% static 'vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js' %}"></script>
+
+<!-- Placeholder for IE9 -->
+<!--[if IE 9 ]>
+            <script src="{% static 'vendors/bower_components/jquery-placeholder/jquery.placeholder.min.js' %}"></script>
+        <![endif]-->
+
+<!-- Demo Only -->
+<script src="{% static 'demo/js/flot-charts/curved-line.js' %}"></script>
+<script src="{% static 'demo/js/flot-charts/line.js' %}"></script>
+<script src="{% static 'demo/js/easy-pie-charts.js' %}"></script>
+<script src="{% static 'demo/js/misc.js' %}"></script>
+<script src="{% static 'demo/js/sparkline-charts.js' %}"></script>
+<script src="{% static 'demo/js/calendar.js' %}"></script>
+
+<!-- Site Functions & Actions -->
+<script src="{% static 'js/app.min.js' %}"></script>
+</body>
+</html>

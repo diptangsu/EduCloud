@@ -3,14 +3,23 @@ from django.shortcuts import render
 from questions.models import Question
 from users.models import User
 
+from academics.models import Department
+
 
 def department_questions(request, department: str):
     department = department.upper()
-    print(department)
     questions = Question.objects.filter(subject__department__short_form=department).order_by('-timestamp')
 
+    departments = Department.objects.all()
+
+    department_obj = Department.objects.get(short_form=department)
+    header = department_obj.name
+
     return render(request, 'academics/questions.html', {
-        'questions': questions
+        'questions': questions,
+        'department': department,
+        'departments': departments,
+        'header': header
     })
 
 
@@ -18,8 +27,11 @@ def subject_questions(request, subject_code: str):
     subject_code = subject_code.upper()
     questions = Question.objects.filter(subject__code=subject_code).order_by('-timestamp')
 
+    departments = Department.objects.all()
+
     return render(request, 'academics/questions.html', {
-        'questions': questions
+        'questions': questions,
+        'departments': departments
     })
 
 
@@ -27,8 +39,11 @@ def department_professors(request, department: str):
     department = department.upper()
     professors = User.objects.filter(user_type='P', department__short_form=department)
 
+    departments = Department.objects.all()
+
     return render(request, 'academics/professors.html', {
-        'professors': professors
+        'professors': professors,
+        'departments': departments
     })
 
 

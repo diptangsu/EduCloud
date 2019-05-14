@@ -1,0 +1,8 @@
+<ul>
+    {% for answer in answers %}
+        <li>
+            {{ answer.user }}
+            <p>{{ answer.body }}</p>
+        </li>
+    {% endfor %}
+</ul>

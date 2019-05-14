@@ -26,7 +26,7 @@ class User(models.Model):
     middle_name = models.CharField(max_length=20, null=True, blank=True)
     last_name = models.CharField(max_length=20)
 
-    email_id = models.EmailField(max_length=255)
+    email_id = models.EmailField(max_length=255, unique=True)
     password = models.CharField(max_length=50)
 
     phone1 = models.CharField(max_length=14)
@@ -43,7 +43,7 @@ class User(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE, null=True)
 
     def __str__(self) -> str:
-        return f'{self.get_user_type_display()}: {self.name()} [{self.department.short_form}]'
+        return f'({self.id}) {self.get_user_type_display()}: {self.name()} [{self.department.short_form}]'
 
     def reputation(self):
         questions = Question.objects.filter(user=self)
