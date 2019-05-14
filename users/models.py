@@ -8,6 +8,8 @@ from questions.models import Answer
 from questions.models import QuestionVote
 from questions.models import AnswerVote
 
+import datetime
+
 
 class User(models.Model):
     GENDER_CHOICES = (
@@ -45,6 +47,10 @@ class User(models.Model):
     def __str__(self) -> str:
         return f'({self.id}) {self.get_user_type_display()}: {self.name()} [{self.department.short_form}]'
 
+    def year(self):
+        now = datetime.datetime.now()
+        return now.year - self.year_of_joining
+
     def reputation(self):
         questions = Question.objects.filter(user=self)
         answers = Answer.objects.filter(user=self)
@@ -72,6 +78,34 @@ class User(models.Model):
 
     def fullname(self):
         return f'{self.first_name} {self.middle_name} {self.last_name}'
+
+    def question_upvotes(self):
+        question_votes = QuestionVote.objects.filter(user=self, vote_type='U')
+        votes = set()
+        for vote in question_votes:
+            votes.add(vote.question.id)
+        return votes
+
+    def question_downvotes(self):
+        question_votes = QuestionVote.objects.filter(user=self, vote_type='D')
+        votes = set()
+        for vote in question_votes:
+            votes.add(vote.question.id)
+        return votes
+
+    def answer_upvotes(self):
+        answer_votes = AnswerVote.objects.filter(user=self, vote_type='U')
+        votes = set()
+        for vote in answer_votes:
+            votes.add(vote.answer.id)
+        return votes
+
+    def answer_downvotes(self):
+        answer_votes = AnswerVote.objects.filter(user=self, vote_type='D')
+        votes = set()
+        for vote in answer_votes:
+            votes.add(vote.answer.id)
+        return votes
 
 
 class StudentDetail(models.Model):

@@ -24,10 +24,19 @@
             <a data-toggle="dropdown" href=""><i class="zmdi zmdi-more-vert"></i></a>
             <ul class="dropdown-menu dropdown-menu--icon pull-right">
                 <li>
-                    <a href=""><i class="zmdi zmdi-account"></i> View Profile</a>
+                    <a href="{% url 'user-profile' logged_in_user.id %}">
+                        <i class="zmdi zmdi-account"></i> View Profile
+                    </a>
                 </li>
                 <li>
                     <a href=""><i class="zmdi zmdi-settings"></i> Settings</a>
+                </li>
+                <li>
+                    <a href="{% url 'user-questions' logged_in_user.id %}"><i
+                            class="zmdi zmdi-assignment"></i> My Questions</a>
+                </li>
+                <li>
+                    <a href=""><i class="zmdi zmdi-check-all"></i> My Answers</a>
                 </li>
                 <li>
                     <a href="javascript: {document.getElementById('logout').submit()}">
@@ -46,7 +55,7 @@
         </li>
         <li class="top-menu__profile">
             <a>
-                <img src="{% static 'demo/img/profile-pics/1.jpg' %}" alt="">
+                <img src="{{ logged_in_user.picture.url }}" alt="">
             </a>
         </li>
     </ul>

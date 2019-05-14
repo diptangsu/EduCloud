@@ -57,6 +57,11 @@
 
             <div class="login__block__body">
                 <form method="post" action="{% url 'user-login' %}" autocomplete="off">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-danger">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
                     {% csrf_token %}
                     <div class="form-group form-group--float form-group--centered form-group--centered">
                         <input required type="email" class="form-control" name="email" value="{{ email }}">

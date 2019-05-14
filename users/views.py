@@ -3,8 +3,11 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import Http404
 from django.shortcuts import redirect
 
+from django.contrib import messages
+
 from questions.models import Question
 from questions.models import Answer
+from academics.models import Department
 
 from .models import User
 from educloud.decorators import login_required
@@ -30,10 +33,12 @@ def login(request):
         except User.DoesNotExist:
             try:
                 user_ = User.objects.get(email_id=email)
+                messages.add_message(request, messages.ERROR, 'Incorrect Password')
                 return render(request, 'users/login.html', {
                     'email': user_.email_id
                 })
             except User.DoesNotExist:
+                messages.add_message(request, messages.ERROR, 'User not registered')
                 return redirect('user-register')
 
         request.session['user_id'] = user.id
@@ -44,10 +49,11 @@ def login(request):
         raise Http404
 
 
+@login_required
 def logout(request):
     if request.method == 'POST':
         del request.session['user_id']
-        return redirect('all-questions-home')
+        return redirect('user-login')
     else:
         raise Http404
 
@@ -91,30 +97,79 @@ def professor_register(request, user_id):
         raise Http404
 
 
+@login_required
 def user_profile(request, user_id):
     user = get_object_or_404(User, id=user_id)
 
+    logged_in_user = User.objects.get(id=request.session['user_id'])
+    departments = Department.objects.all()
+
     if user.user_type == 'S':
         return render(request, 'users/student-profile.html', {
-            'user': user
+            'user': user,
+            'logged_in_user': logged_in_user,
+            'departments': departments
         })
     else:
         return render(request, 'users/professor-profile.html', {
-            'user': user
+            'user': user,
+            'logged_in_user': logged_in_user,
+            'departments': departments
         })
 
 
+@login_required
 def user_questions(request, user_id):
     questions = Question.objects.filter(user_id=user_id)
+    departments = Department.objects.all()
+
+    user = User.objects.get(id=user_id)
+
+    header = f'All questions of {user.name()}'
+    title = f'{user.first_name}\'s Questions'
+
+    logged_in_user = User.objects.get(id=request.session['user_id'])
+    user_questions_ = {
+        q.id
+        for q in Question.objects.filter(user_id=logged_in_user)
+    }
 
     return render(request, 'questions/questions.html', {
-        'questions': questions
+        'questions': questions,
+        'departments': departments,
+        'header': header,
+        'title': title,
+        'user': user,
+        'logged_in_user': logged_in_user,
+        'questions_upvoted': logged_in_user.question_upvotes(),
+        'questions_downvoted': logged_in_user.question_downvotes(),
+        'user_questions': user_questions_
     })
 
 
+@login_required
 def user_answers(request, user_id):
     answers = Answer.objects.filter(user_id=user_id)
+    departments = Department.objects.all()
+
+    user = User.objects.get(id=user_id)
+
+    header = f'All questions of {user.name()}'
+    title = f'{user.first_name}\'s Questions'
+
+    logged_in_user = User.objects.get(id=request.session['user_id'])
+    user_answers_ = {
+        a.id
+        for a in Answer.objects.filter(user_id=logged_in_user)
+    }
 
     return render(request, 'users/user-answers.html', {
-        'answers': answers
+        'answers': answers,
+        'departments': departments,
+        'header': header,
+        'title': title,
+        'user': user,
+        'logged_in_user': logged_in_user,
+        'questions_upvoted': logged_in_user.question_upvotes(),
+        'questions_downvoted': logged_in_user.question_downvotes(),
     })

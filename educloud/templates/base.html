@@ -1,7 +1,7 @@
 {% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
-<!--[if IE 9 ]><html class="ie9"><![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -35,11 +35,15 @@
     <!-- Site CSS -->
     <link href="{% static 'css/app-1.min.css' %}" rel="stylesheet">
 
-    <!-- Page loader -->
-    <script src="{% static 'js/page-loader.min.js' %}"></script>
+    <script src="{% static 'vendors/bower_components/autosize/dist/autosize.min.js' %}"></script>
+
+    // Site Functions & Actions
+    <script src="{% static 'js/app.min.js' %}"></script>
+
+    <script src="{% static 'vendors/bower_components/remarkable-bootstrap-notify/dist/bootstrap-notify.min.js' %}"></script>
 </head>
 
-<body>
+<body onload="notifyAll()">
 <!-- Page Loader -->
 {#        <div id="page-loader">#}
 {#            <div class="preloader preloader--xl preloader--light">#}
@@ -100,19 +104,6 @@
 
 <!-- EasyPie Charts -->
 <script src="{% static 'vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js' %}"></script>
-
-<!-- Placeholder for IE9 -->
-<!--[if IE 9 ]>
-            <script src="{% static 'vendors/bower_components/jquery-placeholder/jquery.placeholder.min.js' %}"></script>
-        <![endif]-->
-
-<!-- Demo Only -->
-<script src="{% static 'demo/js/flot-charts/curved-line.js' %}"></script>
-<script src="{% static 'demo/js/flot-charts/line.js' %}"></script>
-<script src="{% static 'demo/js/easy-pie-charts.js' %}"></script>
-<script src="{% static 'demo/js/misc.js' %}"></script>
-<script src="{% static 'demo/js/sparkline-charts.js' %}"></script>
-<script src="{% static 'demo/js/calendar.js' %}"></script>
 
 <!-- Site Functions & Actions -->
 <script src="{% static 'js/app.min.js' %}"></script>

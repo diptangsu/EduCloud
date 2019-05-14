@@ -1,8 +1,171 @@
-<ul>
-    {% for answer in answers %}
-        <li>
-            {{ answer.user }}
-            <p>{{ answer.body }}</p>
-        </li>
-    {% endfor %}
-</ul>
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ user.name }}
+{% endblock %}
+
+{% block content %}
+
+    <div id="content">
+        <div class="content__header">
+            <h3>{{ user.name }}
+                <br>
+                <small>List of answers</small>
+            </h3>
+        </div>
+    </div>
+
+
+
+    <ul>
+        {% for answer in answers %}
+
+            <div class="card">
+                <div class="card__header">
+                    <a href="{% url 'question' answer.question.id %}">
+                        <h1>{{ answer.question.name }}</h1>
+                    </a>
+                    <div class="actions">
+                        <a style="cursor: pointer;" onclick="upvote_a({{ answer.id }})">
+                            {% if answer.id in answers_upvoted %}
+                                <i class="fas fa-chevron-circle-up" style="color: #4caf50;"></i>
+                            {% else %}
+                                <i class="fas fa-chevron-up" style="color: #4caf50;"></i>
+                            {% endif %}
+                        </a>
+
+                        <a><font color="white" id="votes_a_{{ answer.id }}">{{ answer.votes }}</font></a>
+
+                        <a style="cursor: pointer;" onclick="downvote_a({{ answer.id }})">
+                            {% if answer.id in answers_downvoted %}
+                                <i class="fas fa-chevron-circle-down" style="color: #ef5350;"></i>
+                            {% else %}
+                                <i class="fas fa-chevron-down" style="color: #ef5350;"></i>
+                            {% endif %}
+                        </a>
+
+                    </div>
+
+                    <small>by <a href="{% url 'user-profile' answer.user.id %}"
+                                 class="btn-link"><u>{{ answer.user.name }}</u></a>
+                        on {{ answer.timestamp }}
+                    </small>
+                    <br>
+                </div>
+
+                <div class="card__body" style="font-size: 15px">
+                    {{ answer.body }}
+                </div>
+
+                <div class="card__footer">
+                    <a class="btn btn-default">&nbsp;&nbsp;Edit&nbsp;&nbsp;</a>
+                    <a class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+
+        {% endfor %}
+    </ul>
+
+
+    <script>
+
+        autosize($('.textarea-autosize'));
+
+
+        upvote = (question_id) => {
+            console.log('bhai upvote dicchi!!' + question_id);
+            fetch('http://127.0.0.1:8000/question/question-vote/', {
+                method: 'post',
+                body: JSON.stringify({
+                    question_id: question_id,
+                    vote_type: 'U'
+                })
+            }).then(res => res.json())
+                .then(res => {
+                    document.getElementById(`votes${question_id}`).innerText = res.votes;
+                });
+        };
+
+        downvote = (question_id) => {
+            console.log('bhai upvote dicchi!!' + question_id);
+            fetch('http://127.0.0.1:8000/question/question-vote/', {
+                method: 'post',
+                body: JSON.stringify({
+                    question_id: question_id,
+                    vote_type: 'D'
+                })
+            }).then(res => res.json())
+                .then(res => {
+                    document.getElementById(`votes${question_id}`).innerText = res.votes;
+                });
+        };
+
+
+        upvote_a = (answer_id) => {
+            fetch('http://127.0.0.1:8000/question/answer-vote/', {
+                method: 'post',
+                body: JSON.stringify({
+                    answer_id: answer_id,
+                    vote_type: 'U'
+                })
+            }).then(res => res.json())
+                .then(res => {
+                    document.getElementById(`votes_a_${answer_id}`).innerText = res.votes;
+                });
+        };
+
+        downvote_a = (answer_id) => {
+            fetch('http://127.0.0.1:8000/question/answer-vote/', {
+                method: 'post',
+                body: JSON.stringify({
+                    answer_id: answer_id,
+                    vote_type: 'D'
+                })
+            }).then(res => res.json())
+                .then(res => {
+                    document.getElementById(`votes_a_${answer_id}`).innerText = res.votes;
+                });
+        };
+
+        function notify(message, type) {
+            $.notify({
+                message: message
+            }, {
+                type: type,
+                allow_dismiss: true,
+                label: 'Cancel',
+                className: 'btn-xs btn-default',
+                placement: {
+                    from: 'top',
+                    align: 'right'
+                },
+                delay: 4000,
+                animate: {
+                    enter: 'animated flipInX',
+                    exit: 'animated flipOutX'
+                },
+                offset: {
+                    x: 30,
+                    y: 30
+                }
+            });
+        }
+
+        notifyAll = () => {
+            {% for message in messages %}
+                notify('{{ message }}  ', 'danger');
+            {% endfor %}
+        };
+
+    </script>
+{% endblock %}
+
+
+
+
+
+<h1>{{ this_question.name }}</h1>
+
+<p>{{ this_question.body }}</p>
+
+<p>Asked by {{ user.name }} [{{ user.reputation }}]</p>

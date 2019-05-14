@@ -27,18 +27,28 @@
                     </a>
                     <div class="actions">
                         <a style="cursor: pointer;" onclick="upvote({{ question.id }})">
-                            <i class="fas fa-chevron-up" style="color: #4caf50;"></i>
+                            {% if question.id in questions_upvoted %}
+                                <i class="fas fa-chevron-circle-up" style="color: #4caf50;"></i>
+                            {% else %}
+                                <i class="fas fa-chevron-up" style="color: #4caf50;"></i>
+                            {% endif %}
                         </a>
 
                         <a><font color="white" id="votes{{ question.id }}">{{ question.votes }}</font></a>
 
                         <a style="cursor: pointer;" onclick="downvote({{ question.id }})">
-                            <i class="fas fa-chevron-down" style="color: #ef5350;"></i>
+                            {% if question.id in questions_downvoted %}
+                                <i class="fas fa-chevron-circle-down" style="color: #ef5350;"></i>
+                            {% else %}
+                                <i class="fas fa-chevron-down" style="color: #ef5350;"></i>
+                            {% endif %}
                         </a>
 
                     </div>
 
-                    <small>by <a href="" class="btn-link"><u>{{ question.user.name }}</u></a>
+                    <small>by <a href="{% url 'user-profile' question.user.id %}" class="btn-link">
+                        <u>{{ question.user.name }}
+                        </u></a>
                         on {{ question.timestamp }}
                     </small>
 
@@ -56,12 +66,18 @@
                     <br>
                 </div>
 
-                <div class="card__body">
+                <div class="card__body" style="font-size: 15px">
                     {{ question.body }}
                 </div>
 
                 <div class="card__footer">
+                    <p class="btn btn-default" style="cursor: default; float: left;">{{ question.answers | length }}
+                        answers</p>
                     <a class="btn btn-info" href="{% url 'question' question.id %}">View</a>
+                    {% if question.id in user_questions %}
+                        <a class="btn btn-warning" href="">Edit</a>
+                        <a class="btn btn-danger" href="">Delete</a>
+                    {% endif %}
                     <a class="btn btn-success" href="{% url 'question' question.id %}">Answer</a>
                 </div>
             </div>
@@ -97,5 +113,37 @@
                     document.getElementById(`votes${question_id}`).innerText = res.votes;
                 });
         };
+
+
+        function notify(message, type) {
+            $.notify({
+                message: message
+            }, {
+                type: type,
+                allow_dismiss: true,
+                label: 'Cancel',
+                className: 'btn-xs btn-default',
+                placement: {
+                    from: 'top',
+                    align: 'right'
+                },
+                delay: 4000,
+                animate: {
+                    enter: 'animated flipInX',
+                    exit: 'animated flipOutX'
+                },
+                offset: {
+                    x: 30,
+                    y: 30
+                }
+            });
+        }
+
+        notifyAll = () => {
+            {% for message in messages %}
+                notify('{{ message }}  ', 'danger');
+            {% endfor %}
+        };
+
     </script>
 {% endblock %}
