@@ -37,13 +37,13 @@
     <!-- Page loader -->
     <script src="{% static 'js/page-loader.min.js' %}"></script>
 
-    <link href="{% static 'css/fingerdrumming.css' %}" rel="stylesheet">
-
+    <link rel="stylesheet" href="{% static 'css/fingerdrumming.css' %}">
 </head>
 
 <body>
 
 <section id="container">
+
 
     <div class="login">
 
@@ -51,8 +51,7 @@
         <div class="login__block toggled" id="1-login"
              style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
             <div class="login__block__header">
-{#                <i class="zmdi zmdi-account-circle"></i>#}
-                <i class="fas fa-user"></i>
+                <i class="zmdi zmdi-account-circle"></i>
                 <h3>Login</h3>
             </div>
 
@@ -60,46 +59,28 @@
                 <form method="post" action="{% url 'user-login' %}" autocomplete="off">
                     {% csrf_token %}
                     <div class="form-group form-group--float form-group--centered form-group--centered">
-                        <input required type="email" class="form-control" name="email">
-                        <label>Email id</label>
+                        <input required type="email" class="form-control" name="email" value="{{ email }}">
+                        <label>Email</label>
+                        <i class="form-group__bar"></i>
                     </div>
                     <div class="form-group form-group--float form-group--centered form-group--centered">
                         <input required type="password" class="form-control" name="password">
                         <label>Password</label>
+                        <i class="form-group__bar"></i>
                     </div>
 
-                    <button type="submit" class="btn btn--light btn--icon m-t-15"><i
-                            class="zmdi zmdi-long-arrow-right"></i></button>
+                    <div class="form-group form-group--float form-group--centered form-group--centered">
+                        New User? <u><a href="{% url 'user-register' %}">Register</a></u>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn--icon m-t-15">
+                        <i class="zmdi zmdi-long-arrow-right"></i>
+                    </button>
                 </form>
             </div>
+        </div>
+    </div>
 
-    <div class="loading" style="margin-top: 12%;">
-        <div class="finger finger-1">
-            <div class="finger-item">
-                <span></span><i></i>
-            </div>
-        </div>
-        <div class="finger finger-2">
-            <div class="finger-item">
-                <span></span><i></i>
-            </div>
-        </div>
-        <div class="finger finger-3">
-            <div class="finger-item">
-                <span></span><i></i>
-            </div>
-        </div>
-        <div class="finger finger-4">
-            <div class="finger-item">
-                <span></span><i></i>
-            </div>
-        </div>
-        <div class="last-finger">
-            <div class="last-finger-item"><i></i></div>
-        </div>
-    </div>
-        </div>
-    </div>
 
 </section>
 
@@ -139,6 +120,14 @@
 
 <!-- EasyPie Charts -->
 <script src="{% static 'vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js' %}"></script>
+
+<!-- Demo Only -->
+<script src="{% static 'demo/js/flot-charts/curved-line.js' %}"></script>
+<script src="{% static 'demo/js/flot-charts/line.js' %}"></script>
+<script src="{% static 'demo/js/easy-pie-charts.js' %}"></script>
+<script src="{% static 'demo/js/misc.js' %}"></script>
+<script src="{% static 'demo/js/sparkline-charts.js' %}"></script>
+<script src="{% static 'demo/js/calendar.js' %}"></script>
 
 <!-- Site Functions & Actions -->
 <script src="{% static 'js/app.min.js' %}"></script>

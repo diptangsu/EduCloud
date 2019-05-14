@@ -15,14 +15,24 @@ def login(request):
     if request.method == 'GET':
         return render(request, 'users/login.html')
     elif request.method == 'POST':
-        # fetch student details
-        # save data
-        user_id = 1
+        email = request.POST.get('email', None)
+        password = request.POST.get('password', None)
 
-        request.session['user_id'] = user_id
+        try:
+            user = User.objects.get(email_id=email, password=password)
+        except User.DoesNotExist:
+            try:
+                user_ = User.objects.get(email_id=email)
+                return render(request, 'users/login.html', {
+                    'email': user_.email_id
+                })
+            except User.DoesNotExist:
+                return redirect('user-register')
 
-        department_short_form = 'CSE'
-        return redirect(f'department/{department_short_form}/questions')
+        request.session['user_id'] = user.id
+
+        department_short_form = user.department.short_form
+        return redirect(f'/academics/department/{department_short_form}/questions')
     else:
         raise Http404
 

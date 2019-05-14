@@ -1,9 +1,11 @@
 from django.shortcuts import render
+from django.shortcuts import Http404
 
 from questions.models import Question
 from users.models import User
 
 from academics.models import Department
+from academics.models import Subject
 
 
 def department_questions(request, department: str):
@@ -18,6 +20,7 @@ def department_questions(request, department: str):
     return render(request, 'academics/questions.html', {
         'questions': questions,
         'department': department,
+        'title': department,
         'departments': departments,
         'header': header
     })
@@ -28,10 +31,20 @@ def subject_questions(request, subject_code: str):
     questions = Question.objects.filter(subject__code=subject_code).order_by('-timestamp')
 
     departments = Department.objects.all()
+    title = subject_code
+
+    try:
+        subject = Subject.objects.get(code=subject_code)
+    except Subject.DoesNotExist:
+        raise Http404
+
+    header = subject.name
 
     return render(request, 'academics/questions.html', {
         'questions': questions,
-        'departments': departments
+        'departments': departments,
+        'header': header,
+        'title': title
     })
 
 

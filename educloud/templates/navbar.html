@@ -22,6 +22,18 @@
 
     <div class="navigation__menu c-overflow">
         <ul>
+            {% if header == 'All Questions' %}
+                <li class="navigation__active">
+            {% else %}
+                <li>
+            {% endif %}
+
+            <a href="{% url 'all-questions-home' %}">
+                <i class="fas fa-book-open"></i> All Questions
+            </a>
+
+            </li>
+
             {% for dept in departments %}
 
                 {% if department == dept.short_form %}

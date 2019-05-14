@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    {{ department }}
+    {{ title }}
 {% endblock %}
 
 {% block content %}
@@ -26,15 +26,32 @@
                         <h1>{{ question.name }}</h1>
                     </a>
                     <div class="actions">
-                        <a href=""><i class="fas fa-chevron-up" style="color: #4caf50;"></i></a>
-                        <a><font color="white">{{ question.votes }}</font></a>
-                        <a href=""><i class="fas fa-chevron-down" style="color: #ef5350;"></i></a>
+                        <a style="cursor: pointer;" onclick="upvote({{ question.id }})">
+                            <i class="fas fa-chevron-up" style="color: #4caf50;"></i>
+                        </a>
+
+                        <a><font color="white" id="votes{{ question.id }}">{{ question.votes }}</font></a>
+
+                        <a style="cursor: pointer;" onclick="downvote({{ question.id }})">
+                            <i class="fas fa-chevron-down" style="color: #ef5350;"></i>
+                        </a>
+
                     </div>
-                    <small>by <a href="" class="btn-link"><u>{{ question.user.name }}</u></a> on {{ question.timestamp }}</small>
+
+                    <small>by <a href="" class="btn-link"><u>{{ question.user.name }}</u></a>
+                        on {{ question.timestamp }}
+                    </small>
+
                     <br><br>
+
                     <a href="{% url 'department-question' question.subject.department.short_form %}"
+                       class="btn btn-default">
+                        {{ question.subject.department.name }}
+                    </a>
+
+                    <a href="{% url 'subject-question' question.subject.code %}"
                        class="btn btn-primary">
-                        Subject: {{ question.subject.code }}
+                        {{ question.subject.code }}
                     </a>
                     <br>
                 </div>
@@ -50,4 +67,35 @@
             </div>
         {% endfor %}
     </ul>
+
+
+    <script>
+        upvote = (question_id) => {
+            console.log('bhai upvote dicchi!!' + question_id);
+            fetch('http://127.0.0.1:8000/question/question-vote/', {
+                method: 'post',
+                body: JSON.stringify({
+                    question_id: question_id,
+                    vote_type: 'U'
+                })
+            }).then(res => res.json())
+                .then(res => {
+                    document.getElementById(`votes${question_id}`).innerText = res.votes;
+                });
+        };
+
+        downvote = (question_id) => {
+            console.log('bhai upvote dicchi!!' + question_id);
+            fetch('http://127.0.0.1:8000/question/question-vote/', {
+                method: 'post',
+                body: JSON.stringify({
+                    question_id: question_id,
+                    vote_type: 'D'
+                })
+            }).then(res => res.json())
+                .then(res => {
+                    document.getElementById(`votes${question_id}`).innerText = res.votes;
+                });
+        };
+    </script>
 {% endblock %}
