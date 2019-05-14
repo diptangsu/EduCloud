@@ -5,13 +5,20 @@ from django.shortcuts import redirect
 
 from questions.models import Question
 from questions.models import Answer
-from questions.models import QuestionVote
-from questions.models import AnswerVote
 
 from .models import User
+from educloud.decorators import login_required
 
 
 def login(request):
+    if 'user_id' in request.session:
+        try:
+            user = User.objects.get(id=request.session.get('user_id'))
+            department_short_form = user.department.short_form
+            return redirect(f'/academics/department/{department_short_form}/questions')
+        except User.DoesNotExist:
+            pass
+
     if request.method == 'GET':
         return render(request, 'users/login.html')
     elif request.method == 'POST':
@@ -100,7 +107,7 @@ def user_profile(request, user_id):
 def user_questions(request, user_id):
     questions = Question.objects.filter(user_id=user_id)
 
-    return render(request, 'academics/questions.html', {
+    return render(request, 'questions/questions.html', {
         'questions': questions
     })
 

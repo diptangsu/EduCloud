@@ -3,7 +3,7 @@
 <!-- Header -->
 <header id="header">
     <div class="logo">
-        <a href="{% url 'all-questions-home' %}" class="hidden-xs">
+        <a href="{% url 'all-questions' %}" class="hidden-xs">
             EduCloud
             <small>Learning has never been simpler</small>
         </a>
@@ -23,19 +23,20 @@
         <li class="dropdown hidden-xs">
             <a data-toggle="dropdown" href=""><i class="zmdi zmdi-more-vert"></i></a>
             <ul class="dropdown-menu dropdown-menu--icon pull-right">
-                <li class="hidden-xs">
-                    <a data-mae-action="fullscreen" href=""><i class="zmdi zmdi-fullscreen"></i> Toggle
-                        Fullscreen</a>
+                <li>
+                    <a href=""><i class="zmdi zmdi-account"></i> View Profile</a>
                 </li>
                 <li>
-                    <a data-mae-action="clear-localstorage" href=""><i class="zmdi zmdi-delete"></i>
-                        Clear Local Storage</a>
+                    <a href=""><i class="zmdi zmdi-settings"></i> Settings</a>
                 </li>
                 <li>
-                    <a href=""><i class="zmdi zmdi-face"></i> Privacy Settings</a>
-                </li>
-                <li>
-                    <a href=""><i class="zmdi zmdi-settings"></i> Other Settings</a>
+                    <a href="javascript: {document.getElementById('logout').submit()}">
+                        <i class="zmdi zmdi-time-restore"></i> Logout
+                    </a>
+                    <form id="logout" method="post" action="{% url 'user-logout' %}">
+                        {% csrf_token %}
+                        <input type="hidden">
+                    </form>
                 </li>
             </ul>
         </li>
@@ -43,30 +44,15 @@
             data-target="#notifications__messages">
             <a href=""><i class="zmdi zmdi-notifications"></i></a>
         </li>
-        <li class="top-menu__profile dropdown">
-            <a data-toggle="dropdown" href="">
+        <li class="top-menu__profile">
+            <a>
                 <img src="{% static 'demo/img/profile-pics/1.jpg' %}" alt="">
             </a>
-
-            <ul class="dropdown-menu pull-right dropdown-menu--icon">
-                <li>
-                    <a href="{% static 'profile-about.html' %}"><i class="zmdi zmdi-account"></i> View Profile</a>
-                </li>
-                <li>
-                    <a href=""><i class="zmdi zmdi-input-antenna"></i> Privacy Settings</a>
-                </li>
-                <li>
-                    <a href=""><i class="zmdi zmdi-settings"></i> Settings</a>
-                </li>
-                <li>
-                    <a href=""><i class="zmdi zmdi-time-restore"></i> Logout</a>
-                </li>
-            </ul>
         </li>
     </ul>
 
     <form class="top-search">
-        <input type="text" class="top-search__input" placeholder="Search for people, files & reports">
+        <input type="text" class="top-search__input" placeholder="Search for questions">
         <i class="zmdi zmdi-search top-search__reset"></i>
     </form>
 </header>

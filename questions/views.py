@@ -16,24 +16,18 @@ from academics.models import Department
 from users.models import User
 
 import json
+from educloud.decorators import login_required
 
 
-def home(request):
-    departments = Department.objects.all()
-
-    return render(request, 'questions/home.html', {
-        'departments': departments
-    })
-
-
-def questions(request):
-    all_questions = Question.objects.all().order_by('-timestamp')[:20]
+@login_required
+def all_questions(request):
+    questions = Question.objects.all().order_by('-timestamp')[:20]
     departments = Department.objects.all()
 
     header = 'All Questions'
 
-    return render(request, 'academics/questions.html', {
-        'questions': all_questions,
+    return render(request, 'questions/questions.html', {
+        'questions': questions,
         'departments': departments,
         'header': header,
         'title': header
@@ -114,5 +108,14 @@ def answer_vote(request):
         votes = ans.votes()
 
         return JsonResponse({'votes': votes})
+    else:
+        raise Http404
+
+
+def ask_question(request):
+    if request.method == 'GET':
+        return render(request, 'questions/ask-question.html')
+    elif request.method == 'POST':
+        pass
     else:
         raise Http404

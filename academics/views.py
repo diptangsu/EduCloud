@@ -7,7 +7,10 @@ from users.models import User
 from academics.models import Department
 from academics.models import Subject
 
+from educloud.decorators import login_required
 
+
+@login_required
 def department_questions(request, department: str):
     department = department.upper()
     questions = Question.objects.filter(subject__department__short_form=department).order_by('-timestamp')
@@ -17,7 +20,7 @@ def department_questions(request, department: str):
     department_obj = Department.objects.get(short_form=department)
     header = department_obj.name
 
-    return render(request, 'academics/questions.html', {
+    return render(request, 'questions/questions.html', {
         'questions': questions,
         'department': department,
         'title': department,
@@ -40,7 +43,7 @@ def subject_questions(request, subject_code: str):
 
     header = subject.name
 
-    return render(request, 'academics/questions.html', {
+    return render(request, 'questions/questions.html', {
         'questions': questions,
         'departments': departments,
         'header': header,

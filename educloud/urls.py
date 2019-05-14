@@ -3,12 +3,11 @@ from django.urls import path, include
 from django.conf.urls.static import static
 
 from . import settings
-import questions.views
+import users.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', questions.views.questions, name='all-questions-home'),
-    path('home/', questions.views.home, name='home-test'),
+    path('', users.views.login, name='login'),
     path('user/', include('users.urls')),
     path('academics/', include('academics.urls')),
     path('question/', include('questions.urls')),
