@@ -1,0 +1,103 @@
+DATA STRUCTURES AND ALGORITHM ANALYSIS
+
+what is a data structure
+What is asymptotic analysis
+what are the common asymptotic notations
+what is big o notation
+what is omega notation
+what is theta notation
+what is an algorithm
+what are the characteristics of algorithm
+what is a stack
+what are the applications of stack
+what are the operations on stack
+what is peek in a stack
+what is a queue
+what is a linked list
+how to use linked list as a stack
+how to use linked list as a queue
+what are the limitations of 
+what is the need for linked list
+what is a double ended queue
+what is enqueue and dequeue
+what is difference between queue and circular queue
+what are the advantages of circular queue
+what is time complexity
+what is space complexity
+what are the types of data structures
+what are trees
+what are the types of trees
+what is forest
+what are expression trees
+what is a postfix expression
+what is a infix expression
+what is a prefix expression
+what are tournament trees
+what are graphs
+what is selection sort
+what is bubble sort
+what is insertion sort
+what is radix sort
+what is heap sort
+what is hashing
+what is shell sort
+what are hash tables
+what is merge sort
+what is quick sort
+what is BFS
+what is Breadth First Search
+what is Depth First Search
+what is Binary tree
+what is strictly Binary tree
+what is complete Binary tree
+what is avl tree
+what is B tree
+what is B+ tree
+what is Binary search tree
+what are the operations in a binary search tree
+what is post-order traversal
+what is in-order traversal
+what is pre-order traversal
+what is circular queue
+what is Double linked list
+what are the operations on Double linked list
+what is Circular linked list
+what is a pointer
+what is a 2D array
+how to map 2D array to 1D array
+How to get the adress of an array element
+what are the advantages of an array
+what are the advantages of pointer
+what are the advantages of binary search tree
+what is pointer arithmetic
+what is row-major ordering
+what is column-major ordering
+what are advantages of linked list over an array
+what are the operations in a linked list
+what are the operations in a queue
+what are the operations in a stack
+what is the memory management on double linked list
+what is the memory management on circular linked list
+what is the time complexity of selection sort
+what is the time complexity of bubble sort
+what is the time complexity of insertion sort
+what is the time complexity of radix sort
+what is the time complexity of heap sort
+what is the time complexity of shell sort
+what is the time complexity of merge sort
+what is the time complexity of quick sort
+what is the time complexity of avl tree
+what is the time complexity of binary search tree
+what is the time complexity of binary tree
+what is the space complexity of selection sort
+what is the space complexity of bubble sort
+what is the space complexity of insertion sort
+what is the space complexity of radix sort
+what is the space complexity of heap sort
+what is the space complexity of shell sort
+what is the space complexity of merge sort
+what is the space complexity of quick sort
+what is the space complexity of avl tree
+what is the space complexity of binary search tree
+what is the space complexity of binary tree
+what are the uses of avl tree
