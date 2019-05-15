@@ -23,7 +23,7 @@
             <div class="card">
                 <div class="card__header">
                     <a href="{% url 'question' answer.question.id %}">
-                        <h1>{{ answer.question.name }}</h1>
+                        <h4>{{ answer.question.name }}</h4>
                     </a>
                     <div class="actions">
                         <a style="cursor: pointer;" onclick="upvote_a({{ answer.id }})">
@@ -46,11 +46,6 @@
 
                     </div>
 
-                    <small>by <a href="{% url 'user-profile' answer.user.id %}"
-                                 class="btn-link"><u>{{ answer.user.name }}</u></a>
-                        on {{ answer.timestamp }}
-                    </small>
-                    <br>
                 </div>
 
                 <div class="card__body" style="font-size: 15px">
@@ -58,6 +53,12 @@
                 </div>
 
                 <div class="card__footer">
+                    <div style="float: left;">
+                        <p>by <a href="{% url 'user-profile' answer.user.id %}"
+                                     class="btn-link"><u>{{ answer.user.name }}</u></a>
+                            on {{ answer.timestamp }}
+                        </p>
+                    </div>
                     <a class="btn btn-default">&nbsp;&nbsp;Edit&nbsp;&nbsp;</a>
                     <a class="btn btn-danger">Delete</a>
                 </div>

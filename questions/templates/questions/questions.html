@@ -23,7 +23,7 @@
             <div class="card">
                 <div class="card__header">
                     <a href="{% url 'question' question.id %}">
-                        <h1>{{ question.name }}</h1>
+                        <h3>{{ question.name }}</h3>
                     </a>
                     <div class="actions">
                         <a style="cursor: pointer;" onclick="upvote({{ question.id }})">
@@ -56,7 +56,7 @@
 
                     <a href="{% url 'department-question' question.subject.department.short_form %}"
                        class="btn btn-default">
-                        {{ question.subject.department.name }}
+                        {{ question.subject.department.icon | safe }}&nbsp;{{ question.subject.department.name }}
                     </a>
 
                     <a href="{% url 'subject-question' question.subject.code %}"
@@ -71,14 +71,16 @@
                 </div>
 
                 <div class="card__footer">
-                    <p class="btn btn-default" style="cursor: default; float: left;">{{ question.answers | length }}
+                    <p class="btn btn-default" style="cursor: default; float: left;"><i class="fas fa-comments"></i>&nbsp; {{ question.answers | length }}
                         answers</p>
-                    <a class="btn btn-info" href="{% url 'question' question.id %}">View</a>
+                    <a class="btn btn-info" href="{% url 'question' question.id %}"><i
+                            class="fas fa-external-link-square-alt"></i>&nbsp; View</a>
                     {% if question.id in user_questions %}
-                        <a class="btn btn-warning" href="">Edit</a>
-                        <a class="btn btn-danger" href="">Delete</a>
+                        <a class="btn btn-warning" href=""><i class="fas fa-edit"></i>&nbsp; Edit</a>
+                        <a class="btn btn-danger" href=""><i class="fas fa-trash-alt"></i>&nbsp; Delete</a>
                     {% endif %}
-                    <a class="btn btn-success" href="{% url 'question' question.id %}">Answer</a>
+                    <a class="btn btn-success" href="{% url 'question' question.id %}"><i
+                            class="fas fa-comment-alt"></i>&nbsp; Answer</a>
                 </div>
             </div>
         {% endfor %}

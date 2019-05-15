@@ -50,7 +50,7 @@
 
                 <a href="{% url 'department-question' question.subject.department.short_form %}"
                    class="btn btn-default">
-                    {{ question.subject.department.name }}
+                    {{ question.subject.department.icon | safe }}&nbsp;{{ question.subject.department.name }}
                 </a>
 
                 <a href="{% url 'subject-question' question.subject.code %}"
@@ -65,7 +65,8 @@
             </div>
 
             <div class="card__footer">
-                <p class="btn btn-default" style="cursor: default;">{{ question.answers | length }} answers</p>
+                <p class="btn btn-default" style="cursor: default;"><i
+                        class="fas fa-comments"></i>&nbsp; {{ question.answers | length }} answers</p>
             </div>
         </div>
 
@@ -119,7 +120,8 @@
 
                     </div>
 
-                    <small>by <a href="{% url 'user-profile' answer.user.id %}" class="btn-link"><u>{{ answer.user.name }}</u></a>
+                    <small>by <a href="{% url 'user-profile' answer.user.id %}"
+                                 class="btn-link"><u>{{ answer.user.name }}</u></a>
                         on {{ answer.timestamp }}
                     </small>
                     <br>
@@ -131,8 +133,8 @@
 
                 <div class="card__footer">
                     {% if answer.id in user_answers %}
-                        <a class="btn btn-default">&nbsp;&nbsp;Edit&nbsp;&nbsp;</a>
-                        <a class="btn btn-danger">Delete</a>
+                        <a class="btn btn-default"><i class="fas fa-edit"></i>&nbsp;&nbsp;Edit&nbsp;&nbsp;</a>
+                        <a class="btn btn-danger"><i class="fas fa-trash-alt"></i>&nbsp; Delete</a>
                     {% endif %}
                 </div>
             </div>
