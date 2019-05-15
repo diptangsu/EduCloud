@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="card__body" style="font-size: 15px">
-                    {{ answer.body }}
+                    {{ answer.body | safe }}
                 </div>
 
                 <div class="card__footer">
@@ -160,13 +160,3 @@
 
     </script>
 {% endblock %}
-
-
-
-
-
-<h1>{{ this_question.name }}</h1>
-
-<p>{{ this_question.body }}</p>
-
-<p>Asked by {{ user.name }} [{{ user.reputation }}]</p>

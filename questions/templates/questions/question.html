@@ -61,7 +61,7 @@
             </div>
 
             <div class="card__body" style="font-size: 16px">
-                {{ question.body }}
+                {{ question.body | safe }}
             </div>
 
             <div class="card__footer">
@@ -128,7 +128,7 @@
                 </div>
 
                 <div class="card__body" style="font-size: 15px">
-                    {{ answer.body }}
+                    {{ answer.body | safe }}
                 </div>
 
                 <div class="card__footer">
