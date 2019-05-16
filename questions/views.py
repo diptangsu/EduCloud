@@ -223,7 +223,7 @@ def get_matches(questions_list, question_):
 
 @login_required
 def search(request):
-    question_ = request.POST.get('question', None)
+    question_ = request.GET.get('question', '')
 
     questions = [q.name.replace('What', '') for q in Question.objects.all()]
     departments = Department.objects.all()

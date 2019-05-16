@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Chat
+{% endblock %}
+
+
+{% block content %}
+
+    <section id="content">
+        <div class="content--boxed">
+            <div class="content__header">
+                <h2>Messages</h2>
+            </div>
+
+            <div class="card messages">
+                <div class="messages__sidebar c-overflow mCustomScrollbar _mCS_2 mCS-autoHide mCS_no_scrollbar"
+                     style="overflow: visible;">
+                    <div id="mCSB_2" class="mCustomScrollBox mCS-minimal-dark mCSB_vertical_horizontal mCSB_outside"
+                         style="max-height: none;" tabindex="0">
+                        <div id="mCSB_2_container"
+                             class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y mCS_x_hidden mCS_no_scrollbar_x"
+                             style="position: relative; top: 0px; left: 0px; width: 100%;" dir="ltr">
+                            <div class="messages__user">
+                                <img src="{{ logged_in_user.picture.url }}" alt="" class="mCS_img_loaded">
+                                <div>Signed in as <br> {{ logged_in_user.email_id }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="mCSB_2_scrollbar_vertical"
+                         class="mCSB_scrollTools mCSB_2_scrollbar mCS-minimal-dark mCSB_scrollTools_vertical"
+                         style="display: none;">
+                        <div class="mCSB_draggerContainer">
+                            <div id="mCSB_2_dragger_vertical" class="mCSB_dragger"
+                                 style="position: absolute; min-height: 50px; height: 0px; top: 0px;">
+                                <div class="mCSB_dragger_bar" style="line-height: 50px;"></div>
+                            </div>
+                            <div class="mCSB_draggerRail"></div>
+                        </div>
+                    </div>
+                    <div id="mCSB_2_scrollbar_horizontal"
+                         class="mCSB_scrollTools mCSB_2_scrollbar mCS-minimal-dark mCSB_scrollTools_horizontal"
+                         style="display: none;">
+                        <div class="mCSB_draggerContainer">
+                            <div id="mCSB_2_dragger_horizontal" class="mCSB_dragger"
+                                 style="position: absolute; min-width: 50px; width: 0px; left: 0px;">
+                                <div class="mCSB_dragger_bar"></div>
+                            </div>
+                            <div class="mCSB_draggerRail"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="messages__body">
+                    <div class="action-header">
+                        <div class="action-header__label">
+                            <i class="zmdi zmdi-menu action-header__trigger visible-xs" data-mae-action="block-open"
+                               data-mae-target=".messages__sidebar"></i>
+                            <span class="hidden-xs">Talk to our chat bot!</span>
+                        </div>
+                    </div>
+
+                    <div class="list-group">
+
+                        <div class="list-group-item media">
+                            <div class="pull-left">
+                                <img class="avatar-img" src="" alt="">
+                            </div>
+                            <div class="media-body">
+                                <div>
+                                    <div class="messages__item">
+                                        Hi! Ask me a question!
+                                    </div>
+                                </div>
+                                <small class="ms-date"><i class="zmdi zmdi-time"></i></small>
+                            </div>
+                        </div>
+
+
+                        {% if message %}
+                            <div class="list-group-item media">
+                                <div class="pull-right">
+                                    <img class="avatar-img" src="{{ logged_in_user.picture.url }}" alt="">
+                                </div>
+                                <div class="media-body">
+                                    <div>
+                                        <div class="messages__item">
+                                            {{ message }}
+                                        </div>
+                                    </div>
+                                    <small class="ms-date"><i class="zmdi zmdi-time"></i></small>
+                                </div>
+                            </div>
+                        {% endif %}
+
+
+                        {% if reply %}
+                            <div class="list-group-item media">
+                                <div class="pull-left">
+                                    <img class="avatar-img" src="" alt="">
+                                </div>
+                                <div class="media-body">
+                                    <div>
+                                        <div class="messages__item">
+                                            {{ reply }}
+                                        </div>
+                                    </div>
+                                    <small class="ms-date"><i class="zmdi zmdi-time"></i></small>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <div class="messages__reply">
+                            <form action="{% url 'chat' %}" method="post">
+                                {% csrf_token %}
+                                <textarea class="messages__reply__text" name="message"
+                                          placeholder="What's on your mind..."></textarea>
+                                <button class="btn btn-success btn--icon messages__reply__btn"><i
+                                        class="zmdi zmdi-check"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

@@ -11,5 +11,6 @@ urlpatterns = [
     path('user/', include('users.urls')),
     path('academics/', include('academics.urls')),
     path('question/', include('questions.urls')),
+    path('chat/', include('chatbot.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
   + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -60,8 +60,8 @@
         </li>
     </ul>
 
-    <form class="top-search" method="post" action="{% url 'search-question' %}">
-        {% csrf_token %}
+    <form class="top-search" method="get" action="{% url 'search-question' %}">
+{#        {% csrf_token %}#}
         <input type="text" name="question" class="top-search__input" placeholder="Search for questions">
         <i class="zmdi zmdi-search top-search__reset"></i>
     </form>
