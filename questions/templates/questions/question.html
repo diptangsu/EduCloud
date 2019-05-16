@@ -49,6 +49,9 @@
                         </div>
                         <div class="media-body list-group__text">
                             <div class="list-group__heading">by <u>{{ question.user.name }}</u>
+                                {% if question.user.user_type == 'P' %}
+                                    <button class="btn btn-default"> Professor</button>
+                                {% endif %}
                             </div>
                             <small class="list-group__text">
                                 on {{ question.timestamp }}
@@ -138,6 +141,9 @@
                             </div>
                             <div class="media-body list-group__text">
                                 <div class="list-group__heading">by <u>{{ answer.user.name }}</u>
+                                    {% if answer.user.user_type == 'P' %}
+                                        <button class="btn btn-default"> Professor</button>
+                                    {% endif %}
                                 </div>
                                 <small class="list-group__text">
                                     on {{ answer.timestamp }}
