@@ -87,7 +87,7 @@
                                 <div class="media-body">
                                     <div>
                                         <div class="messages__item">
-                                            {{ message }}
+                                            {{ message | urlize }}
                                         </div>
                                     </div>
                                     <small class="ms-date"><i class="zmdi zmdi-time"></i></small>
@@ -104,7 +104,7 @@
                                 <div class="media-body">
                                     <div>
                                         <div class="messages__item">
-                                            {{ reply }}
+                                            {{ reply | urlize }}
                                         </div>
                                     </div>
                                     <small class="ms-date"><i class="zmdi zmdi-time"></i></small>

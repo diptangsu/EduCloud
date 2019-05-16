@@ -33,7 +33,8 @@ def chat(request):
             'departments': departments,
             'logged_in_user': logged_in_user,
             'message': last_message,
-            'reply': reply
+            'reply': reply,
+            'chat': True
         })
     elif request.method == 'POST':
         message_text = request.POST.get('message', None)

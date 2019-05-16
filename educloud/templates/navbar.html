@@ -6,17 +6,11 @@
     </div>
 
     <div class="navigation__toggles">
-        <a href="" class="active" data-mae-action="block-open" data-mae-target="#notifications"
-           data-toggle="tab" data-target="#notifications__messages">
-            <i class="zmdi zmdi-email"></i>
-        </a>
-        <a href="" data-mae-action="block-open" data-mae-target="#notifications" data-toggle="tab"
-           data-target="#notifications__updates">
-            <i class="zmdi zmdi-notifications"></i>
-        </a>
-        <a href="" data-mae-action="block-open" data-mae-target="#notifications" data-toggle="tab"
-           data-target="#notifications__tasks">
-            <i class="zmdi zmdi-playlist-plus"></i>
+        <a href="{% url 'chat' %}" {% if chat %}class="active"{% endif %}>
+            <i class="fas fa-robot"></i>
+            <h6>
+                ChatBot
+            </h6>
         </a>
     </div>
 
@@ -24,7 +18,7 @@
         <ul>
             {% if header == 'All Questions' %}
                 <li class="navigation__active">
-            {% else %}
+                    {% else %}
                 <li>
             {% endif %}
 
