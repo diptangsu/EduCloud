@@ -14,10 +14,14 @@ from .models import QuestionVote
 from .models import AnswerVote
 
 from academics.models import Department
+from academics.models import Subject
 from users.models import User
 
 import json
 from educloud.decorators import login_required
+
+import numpy as np
+from bert_serving.client import BertClient
 
 
 @login_required
@@ -165,10 +169,87 @@ def answer_vote(request):
         raise Http404
 
 
+@login_required
 def ask_question(request):
+    logged_in_user = User.objects.get(id=request.session['user_id'])
+
     if request.method == 'GET':
-        return render(request, 'questions/ask-question.html')
+        subjects = Subject.objects.all()
+        departments = Department.objects.all()
+
+        return render(request, 'questions/ask-question.html', {
+            'subjects': subjects,
+            'departments': departments,
+            'logged_in_user': logged_in_user,
+        })
     elif request.method == 'POST':
-        pass
+        question_name = request.POST.get('questionName', None)
+        question_body = request.POST.get('questionBody', None)
+        subject_id = request.POST.get('subjectId', None)
+
+        if all((question_name, question_body, subject_id)):
+            try:
+                ques = Question()
+                ques.name = question_name
+                ques.body = question_body
+                ques.user = logged_in_user
+                sub = Subject.objects.get(id=subject_id)
+                ques.subject = sub
+                ques.save()
+
+                return redirect(f'/academics/department/{sub.department.short_form}/questions/')
+            except Subject.DoesNotExist:
+                pass
+        else:
+            return redirect('ask-question')
     else:
         raise Http404
+
+
+def get_matches(questions_list, question_):
+    with BertClient(ip='localhost') as bc:
+        doc_vecs = bc.encode(questions_list)
+        query_vec = bc.encode([question_])[0]
+
+        # compute normalized dot product as score
+        score = np.sum(query_vec * doc_vecs, axis=1) / np.linalg.norm(doc_vecs, axis=1)
+        topk_idx = np.argsort(score)[::-1][:5]
+
+        print('top %d questions similar to "%s"' % (5, question_))
+        for idx in topk_idx:
+            print('> %s\t%s' % ('%.1f' % score[idx], questions_list[idx]))
+            yield questions_list[idx]
+
+
+@login_required
+def search(request):
+    question_ = request.POST.get('question', None)
+
+    questions = [q.name.replace('What', '') for q in Question.objects.all()]
+    departments = Department.objects.all()
+
+    print(questions)
+
+    logged_in_user = User.objects.get(id=request.session['user_id'])
+    user_questions = {
+        q.id
+        for q in Question.objects.filter(user_id=logged_in_user)
+    }
+
+    header = 'Search Results: ' + question_
+
+    matched_questions = []
+    for match in get_matches(questions, question_):
+        qs = Question.objects.filter(name=match)
+        matched_questions.extend([q for q in qs])
+
+    return render(request, 'questions/questions.html', {
+        'questions': matched_questions,
+        'departments': departments,
+        'header': header,
+        'title': header,
+        'logged_in_user': logged_in_user,
+        'questions_upvoted': logged_in_user.question_upvotes(),
+        'questions_downvoted': logged_in_user.question_downvotes(),
+        'user_questions': user_questions
+    })

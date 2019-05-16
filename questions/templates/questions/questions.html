@@ -46,11 +46,20 @@
 
                     </div>
 
-                    <small>by <a href="{% url 'user-profile' question.user.id %}" class="btn-link">
-                        <u>{{ question.user.name }}
-                        </u></a>
-                        on {{ question.timestamp }}
-                    </small>
+                    <div class="list-group">
+                        <a href="{% url 'user-profile' question.user.id %}" class="list-group-item media">
+                            <div class="pull-left">
+                                <img src="{{ question.user.picture.url }}" class="avatar-img">
+                            </div>
+                            <div class="media-body list-group__text">
+                                <div class="list-group__heading">by <u>{{ question.user.name }}</u>
+                                </div>
+                                <small class="list-group__text">
+                                    on {{ question.timestamp }}
+                                </small>
+                            </div>
+                        </a>
+                    </div>
 
                     <br><br>
 
@@ -61,7 +70,7 @@
 
                     <a href="{% url 'subject-question' question.subject.code %}"
                        class="btn btn-primary">
-                        {{ question.subject.code }}
+                        {{ question.subject }}
                     </a>
                     <br>
                 </div>
@@ -89,7 +98,6 @@
 
     <script>
         upvote = (question_id) => {
-            console.log('bhai upvote dicchi!!' + question_id);
             fetch('http://127.0.0.1:8000/question/question-vote/', {
                 method: 'post',
                 body: JSON.stringify({
@@ -103,7 +111,6 @@
         };
 
         downvote = (question_id) => {
-            console.log('bhai upvote dicchi!!' + question_id);
             fetch('http://127.0.0.1:8000/question/question-vote/', {
                 method: 'post',
                 body: JSON.stringify({

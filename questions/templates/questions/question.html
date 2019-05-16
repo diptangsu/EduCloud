@@ -42,9 +42,20 @@
 
                 </div>
 
-                <small>by <a href="" class="btn-link"><u>{{ question.user.name }}</u></a>
-                    on {{ question.timestamp }}
-                </small>
+                <div class="list-group">
+                    <a href="{% url 'user-profile' question.user.id %}" class="list-group-item media">
+                        <div class="pull-left">
+                            <img src="{{ question.user.picture.url }}" class="avatar-img">
+                        </div>
+                        <div class="media-body list-group__text">
+                            <div class="list-group__heading">by <u>{{ question.user.name }}</u>
+                            </div>
+                            <small class="list-group__text">
+                                on {{ question.timestamp }}
+                            </small>
+                        </div>
+                    </a>
+                </div>
 
                 <br><br>
 
@@ -120,10 +131,20 @@
 
                     </div>
 
-                    <small>by <a href="{% url 'user-profile' answer.user.id %}"
-                                 class="btn-link"><u>{{ answer.user.name }}</u></a>
-                        on {{ answer.timestamp }}
-                    </small>
+                    <div class="list-group">
+                        <a href="{% url 'user-profile' answer.user.id %}" class="list-group-item media">
+                            <div class="pull-left">
+                                <img src="{{ answer.user.picture.url }}" class="avatar-img">
+                            </div>
+                            <div class="media-body list-group__text">
+                                <div class="list-group__heading">by <u>{{ answer.user.name }}</u>
+                                </div>
+                                <small class="list-group__text">
+                                    on {{ answer.timestamp }}
+                                </small>
+                            </div>
+                        </a>
+                    </div>
                     <br>
                 </div>
 
@@ -149,7 +170,6 @@
 
 
         upvote = (question_id) => {
-            console.log('bhai upvote dicchi!!' + question_id);
             fetch('http://127.0.0.1:8000/question/question-vote/', {
                 method: 'post',
                 body: JSON.stringify({
@@ -163,7 +183,6 @@
         };
 
         downvote = (question_id) => {
-            console.log('bhai upvote dicchi!!' + question_id);
             fetch('http://127.0.0.1:8000/question/question-vote/', {
                 method: 'post',
                 body: JSON.stringify({
@@ -235,13 +254,3 @@
 
     </script>
 {% endblock %}
-
-
-
-
-
-<h1>{{ this_question.name }}</h1>
-
-<p>{{ this_question.body }}</p>
-
-<p>Asked by {{ user.name }} [{{ user.reputation }}]</p>

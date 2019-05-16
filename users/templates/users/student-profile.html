@@ -3,7 +3,7 @@
 {% load staticfiles %}
 
 {% block title %}
-{{ user.first_name }}
+    {{ user.first_name }}
 {% endblock %}
 
 
@@ -12,10 +12,10 @@
     <section id="content">
         <div class="content--boxed-sm">
             <header class="content__header">
-                <h1>
+                <h3>
                     {{ user.name }}<br>
                     <small>{{ user.department.name }}</small>
-                </h1>
+                </h3>
             </header>
 
             <div class="card profile p-10">
@@ -35,219 +35,21 @@
                 </div>
             </div>
 
-            <div class="action-header action-header--card">
-                <ul class="action-header__menu">
-                    <li><a href="{% url 'user-questions' user.id %}">Questions</a></li>
-                    <li><a href="{% url 'user-answers' user.id %}">Answers</a></li>
-                    <li class="action-header__settings"><a href=""><i class="zmdi zmdi-settings"></i></a></li>
-                </ul>
-            </div>
-
-            <div class="card wall__item">
-                <div class="card__header">
-                    <div class="media">
-                        <div class="pull-left">
-                            <img class="avatar-img" src="{% static 'demo/img/profile-pics/1.jpg' %}" alt="">
-                        </div>
-
-                        <div class="media-body">
-                            <h2>Mallinda Hollaway
-                                <small>Posted on 2nd Nov 2016 at 07:00</small>
-                            </h2>
-                        </div>
-                    </div>
+            <a href="{% url 'user-questions' user.id %}">
+                <div class="action-header action-header--card">
+                    <ul class="action-header__menu">
+                        <li>Questions</li>
+                    </ul>
                 </div>
+            </a>
 
-                <div class="card__body">
-                    <p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Fusce eget dolor id justo luctus
-                        commodo vel pharetra nisi. Donec velit libero, gravida vel diam ut, lobortis mollis quam. Morbi
-                        posuere egestas posuere. Curabitur in dui sollicitudin, lacinia magna at, laoreet sapien.
-                        Integer vitae eros nulla.</p>
-
-                    <div class="wall__img lightbox">
-                        <div class="wall__img__item" data-src="{% static 'demo/img/gallery/6.jpg' %}"
-                             style="background-image: url(demo/img/gallery/6.jpg);">
-                            <img src="{% static 'demo/img/gallery/thumbs/6.jpg' %}" alt="">
-                        </div>
-                        <div class="wall__img__item" data-src="{% static 'demo/img/gallery/7.jpg' %}"
-                             style="background-image: url(demo/img/gallery/7.jpg);">
-                            <img src="{% static 'demo/img/gallery/thumbs/7.jpg' %}" alt="">
-                        </div>
-                        <div class="wall__img__item" data-src="{% static 'demo/img/gallery/8.jpg' %}"
-                             style="background-image: url(demo/img/gallery/8.jpg);">
-                            <img src="{% static 'demo/img/gallery/thumbs/8.jpg' %}" alt="">
-                        </div>
-                        <div class="wall__img__item" data-src="{% static 'demo/img/gallery/9.jpg' %}"
-                             style="background-image: url(demo/img/gallery/9.jpg);">
-                            <img src="{% static 'demo/img/gallery/thumbs/5.jpg' %}" alt="">
-                        </div>
-                    </div>
-
-                    <div class="wall__attrs">
-                        <div class="wall__stats">
-                            <span><i class="zmdi zmdi-comments"></i> 36</span>
-                            <span class="active"><i class="zmdi zmdi-favorite"></i> 220</span>
-                        </div>
-
-                        <div class="wall__people hidden-xs">
-                            <a href=""><img src="{% static 'demo/img/profile-pics/1.jpg' %}" alt=""></a>
-                            <a href=""><img src="{% static 'demo/img/profile-pics/2.jpg' %}" alt=""></a>
-                            <a href=""><img src="{% static 'demo/img/profile-pics/3.jpg' %}" alt=""></a>
-                            <a href=""><img src="{% static 'demo/img/profile-pics/5.jpg' %}" alt=""></a>
-                        </div>
-                    </div>
+            <a href="{% url 'user-answers' user.id %}">
+                <div class="action-header action-header--card">
+                    <ul class="action-header__menu">
+                        <li>Answers</li>
+                    </ul>
                 </div>
-
-                <div class="wall__comments">
-
-                    <div class="wall__comments__lists">
-                        <div class="media">
-                            <a href="" class="pull-left">
-                                <img src="{% static 'demo/img/profile-pics/5.jpg' %}" alt="" class="avatar-img">
-                            </a>
-
-                            <div class="media-body">
-                                <a href="">David Nathan</a>
-                                <small class="m-l-10">3 mins ago...</small>
-                                <p>Maecenas dignissim in neque id commodo. Nam pretium a tortor a convallis. Curabitur
-                                    in arcu quis nulla aliquam condimentum. Morbi eu cursus diam, vitae tristique
-                                    dui.</p>
-
-                                <div class="actions">
-                                    <div class="dropdown">
-                                        <a href="" data-toggle="dropdown"><i class="zmdi zmdi-more-vert"></i></a>
-
-                                        <ul class="dropdown-menu pull-right">
-                                            <li><a href="">Report</a></li>
-                                            <li><a href="">Delete</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="media">
-                            <a href="" class="pull-left">
-                                <img src="{% static 'demo/img/profile-pics/4.jpg' %}" alt="" class="avatar-img">
-                            </a>
-
-                            <div class="media-body">
-                                <a href="">Sam Anderson</a>
-                                <small>3 mins ago...</small>
-                                <p>Curabitur in arcu quis nulla aliquam condimentum.</p>
-
-                                <div class="actions">
-                                    <div class="dropdown">
-                                        <a href="" data-toggle="dropdown"><i class="zmdi zmdi-more-vert"></i></a>
-
-                                        <ul class="dropdown-menu pull-right">
-                                            <li><a href="">Report</a></li>
-                                            <li><a href="">Delete</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <form class="wall__comments__input">
-                        <textarea class="textarea-autosize" placeholder="Write something..."
-                                  style="overflow: hidden; overflow-wrap: break-word; height: 76px;"></textarea>
-                    </form>
-                </div>
-            </div>
-
-            <div class="card wall__item">
-                <div class="card__header">
-                    <div class="media">
-                        <div class="pull-left">
-                            <img class="avatar-img" src="{% static 'demo/img/profile-pics/1.jpg' %}" alt="">
-                        </div>
-
-                        <div class="media-body">
-                            <h2>Mallinda Hollaway
-                                <small>Posted on 3rd Nov 2016 at 07:00</small>
-                            </h2>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card__body">
-                    <p>Donec ullamcorper nulla non metus auctor fringilla. Morbi leo risus, porta ac consectetur ac,
-                        vestibulum at eros. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Maecenas
-                        faucibus mollis interdum.</p>
-
-                    <div class="wall__attrs">
-                        <div class="wall__stats">
-                            <span><i class="zmdi zmdi-comments"></i> 02</span>
-                            <span><i class="zmdi zmdi-favorite"></i> 12</span>
-                        </div>
-
-                        <div class="wall__people hidden-xs">
-                            <a href=""><img src="{% static 'demo/img/profile-pics/4.jpg' %}" alt=""></a>
-                            <a href=""><img src="{% static 'demo/img/profile-pics/5.jpg' %}" alt=""></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="wall__comments">
-
-                    <div class="wall__comments__lists">
-                        <div class="media">
-                            <a href="" class="pull-left">
-                                <img src="{% static 'demo/img/profile-pics/5.jpg' %}" alt="" class="avatar-img">
-                            </a>
-
-                            <div class="media-body">
-                                <a href="">Lita Wellington</a>
-                                <small>10 mins ago...</small>
-                                <p>Maecenas dignissim in neque id commodo. Nam pretium a tortor a convallis. Curabitur
-                                    in arcu quis nulla aliquam condimentum. Morbi eu cursus diam, vitae tristique
-                                    dui.</p>
-
-                                <div class="actions">
-                                    <div class="dropdown">
-                                        <a href="" data-toggle="dropdown"><i class="zmdi zmdi-more-vert"></i></a>
-
-                                        <ul class="dropdown-menu pull-right">
-                                            <li><a href="">Report</a></li>
-                                            <li><a href="">Delete</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="media">
-                            <a href="" class="pull-left">
-                                <img src="{% static 'demo/img/profile-pics/8.jpg' %}" alt="" class="avatar-img">
-                            </a>
-
-                            <div class="media-body">
-                                <a href="">Teena James</a>
-                                <small>1 hour ago...</small>
-                                <p>Curabitur in arcu quis nulla aliquam condimentum.</p>
-
-                                <div class="actions">
-                                    <div class="dropdown">
-                                        <a href="" data-toggle="dropdown"><i class="zmdi zmdi-more-vert"></i></a>
-
-                                        <ul class="dropdown-menu pull-right">
-                                            <li><a href="">Report</a></li>
-                                            <li><a href="">Delete</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <form class="wall__comments__input">
-                        <textarea class="textarea-autosize" placeholder="Write something..."
-                                  style="overflow: hidden; overflow-wrap: break-word; height: 76px;"></textarea>
-                    </form>
-                </div>
-            </div>
+            </a>
         </div>
     </section>
 

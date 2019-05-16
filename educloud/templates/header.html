@@ -16,7 +16,7 @@
         </li>
 
         <li class="top-menu__apps dropdown hidden-xs hidden-sm">
-            <a href="#">
+            <a href="{% url 'ask-question' %}">
                 <button class="btn btn-primary">Ask Question</button>
             </a>
         </li>
@@ -36,7 +36,7 @@
                             class="zmdi zmdi-assignment"></i> My Questions</a>
                 </li>
                 <li>
-                    <a href=""><i class="zmdi zmdi-check-all"></i> My Answers</a>
+                    <a href="{% url 'user-answers' logged_in_user.id %}"><i class="zmdi zmdi-check-all"></i> My Answers</a>
                 </li>
                 <li>
                     <a href="javascript: {document.getElementById('logout').submit()}">
@@ -60,8 +60,9 @@
         </li>
     </ul>
 
-    <form class="top-search">
-        <input type="text" class="top-search__input" placeholder="Search for questions">
+    <form class="top-search" method="post" action="{% url 'search-question' %}">
+        {% csrf_token %}
+        <input type="text" name="question" class="top-search__input" placeholder="Search for questions">
         <i class="zmdi zmdi-search top-search__reset"></i>
     </form>
 </header>
