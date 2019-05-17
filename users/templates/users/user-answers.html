@@ -55,12 +55,14 @@
                 <div class="card__footer">
                     <div style="float: left;">
                         <p>by <a href="{% url 'user-profile' answer.user.id %}"
-                                     class="btn-link"><u>{{ answer.user.name }}</u></a>
+                                 class="btn-link"><u>{{ answer.user.name }}</u></a>
                             on {{ answer.timestamp }}
                         </p>
                     </div>
-                    <a class="btn btn-default">&nbsp;&nbsp;Edit&nbsp;&nbsp;</a>
-                    <a class="btn btn-danger">Delete</a>
+                    {% if user.id == logged_in_user.id %}
+                        <a class="btn btn-default">&nbsp;&nbsp;Edit&nbsp;&nbsp;</a>
+                        <a class="btn btn-danger">Delete</a>
+                    {% endif %}
                 </div>
             </div>
 

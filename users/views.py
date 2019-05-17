@@ -158,10 +158,6 @@ def user_answers(request, user_id):
     title = f'{user.first_name}\'s Questions'
 
     logged_in_user = User.objects.get(id=request.session['user_id'])
-    user_answers_ = {
-        a.id
-        for a in Answer.objects.filter(user_id=logged_in_user)
-    }
 
     return render(request, 'users/user-answers.html', {
         'answers': answers,

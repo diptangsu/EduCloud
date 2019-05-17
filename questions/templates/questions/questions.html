@@ -83,8 +83,10 @@
                 </div>
 
                 <div class="card__footer">
-                    <p class="btn btn-default" style="cursor: default; float: left;"><i class="fas fa-comments"></i>&nbsp; {{ question.answers | length }}
-                        answers</p>
+                    <a class="btn btn-default" style="float: left;" href="{% url 'question' question.id %}">
+                        <i class="fas fa-comments"></i>&nbsp; {{ question.answers | length }}
+                        answers
+                    </a>
                     <a class="btn btn-info" href="{% url 'question' question.id %}"><i
                             class="fas fa-external-link-square-alt"></i>&nbsp; View</a>
                     {% if question.id in user_questions %}
