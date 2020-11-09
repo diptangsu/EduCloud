@@ -5,8 +5,7 @@ from django.contrib import messages
 
 
 def login_required(func):
-    wraps(func)
-
+    @wraps(func)
     def check(request, *args, **kwargs):
         if 'user_id' in request.session:
             return func(request, *args, **kwargs)
