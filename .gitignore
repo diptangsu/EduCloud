@@ -285,3 +285,4 @@ fabric.properties
 .history
 
 # End of https://www.gitignore.io/api/django,python,pycharm,visualstudiocode
+pythonenv3.8/*
